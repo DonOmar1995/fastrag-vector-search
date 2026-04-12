@@ -1,7 +1,7 @@
 # FastRAG-Vector-Search — Experiment Report
 
-> **Experiment date:** 2026-04-12 19:22 UTC  
-> **Device:** CPU  
+> **Experiment date:** 2026-04-12 23:29 UTC  
+> **Device:** CUDA  
 > **Index:** 50,000 documents × 768 dimensions  
 > **Batch size:** 32 queries | **Iterations:** 8
 
@@ -24,21 +24,21 @@ Two retrieval approaches were benchmarked against the same embedding index:
 
 | Metric | WITHOUT | WITH | Δ |
 |---|---|---|---|
-| Mean latency (ms) | 301.14 | 28.56 | **10.54× faster** |
-| Min latency (ms) | 281.47 | 26.35 | |
-| p95 latency (ms) | 332.04 | 30.43 | |
-| Throughput (QPS) | 106.3 | 1120.5 | **+954.1%** |
+| Mean latency (ms) | 22.44 | 0.59 | **38.03× faster** |
+| Min latency (ms) | 22.02 | 0.56 | |
+| p95 latency (ms) | 22.87 | 0.64 | |
+| Throughput (QPS) | 1425.9 | 54647.1 | **+3732.5%** |
 | Index memory (MB) | 146.5 | 73.2 | **50.0% savings** |
-| Top-1 accuracy | 100% | 99.5% | negligible loss |
+| Top-1 accuracy | 100% | 100.0% | negligible loss |
 
 ---
 
 ## Key Findings
 
-- ⚡ **10.54× latency speedup** through batched + fused operations
-- 📈 **+954.1% throughput** gain (queries per second)
+- ⚡ **38.03× latency speedup** through batched + fused operations
+- 📈 **+3732.5% throughput** gain (queries per second)
 - 💾 **50.0% memory reduction** via FP16 quantisation
-- 🎯 **99.5% top-1 accuracy** maintained (negligible degradation)
+- 🎯 **100.0% top-1 accuracy** maintained (negligible degradation)
 
 ---
 

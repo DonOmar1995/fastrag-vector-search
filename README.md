@@ -276,7 +276,7 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 **Omar Yasser Mohamed Elazouni**  
 📧 omaralazoni2015@gmail.com  
-🔗 [linkedin.com/in/omarelazouni]([linkedin.com/in/omarelazouni](https://www.linkedin.com/in/omarelazouni/))  
+🔗 [linkedin.com/in/omarelazouni](https://www.linkedin.com/in/omarelazouni/)  
 🐙 [github.com/OmarElazouni](https://github.com/OmarElazouni)
 
 ---

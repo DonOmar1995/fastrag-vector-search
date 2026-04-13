@@ -1,3 +1,7 @@
+# Personal notes / scratch files
+*.docx
+check_cuda.py
+
 # Python
 __pycache__/
 *.py[cod]

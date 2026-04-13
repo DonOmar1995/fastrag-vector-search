@@ -8,7 +8,7 @@
 [![Python: 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://python.org)
 [![PyTorch: 2.0+](https://img.shields.io/badge/PyTorch-2.0%2B-red.svg)](https://pytorch.org)
 [![CUDA: 11.8+](https://img.shields.io/badge/CUDA-11.8%2B-green.svg)](https://developer.nvidia.com/cuda-toolkit)
-[![Tests](https://github.com/omaralazoni/fastrag-vector-search/actions/workflows/tests.yml/badge.svg)](https://github.com/omaralazoni/fastrag-vector-search/actions)
+[![Tests](https://github.com/OmarElazouni/fastrag-vector-search/actions/workflows/tests.yml/badge.svg)](https://github.com/OmarElazouni/fastrag-vector-search/actions)
 
 A **production-grade** GPU-accelerated vector similarity search engine built from scratch —
 demonstrating deep hardware optimization expertise for Retrieval-Augmented Generation (RAG) pipelines.
@@ -37,14 +37,16 @@ from the hardware:
 
 ## 📊 Performance Results
 
-> Benchmarked on NVIDIA A100 (80 GB) with 100,000 × 1536-dim embeddings, batch size 32.
+> Benchmarked on **NVIDIA GeForce RTX 5070 Laptop GPU (8.5 GB VRAM)** — 50,000 × 768-dim embeddings, batch size 32.
 
-| Metric | Baseline (FP32) | Optimised (FP16) | Improvement |
-|--------|----------------|-----------------|-------------|
-| Mean latency | ~213 ms | ~85 ms | **2.5× faster** |
-| Throughput | ~150 QPS | ~375 QPS | **+150%** |
-| Index memory | ~600 MB | ~300 MB | **50% savings** |
-| Top-1 accuracy | 100% | 99.9% | negligible loss |
+| Metric | Without Optimisation (FP32) | With Optimisation (FP16) | Improvement |
+|--------|---------------------------|--------------------------|-------------|
+| Mean latency | 22.4 ms | **0.6 ms** | **38× faster** |
+| Throughput | 1,426 QPS | **54,647 QPS** | **+3,733%** |
+| Index memory | 146.5 MB | **73.2 MB** | **50% savings** |
+| Top-1 accuracy | 100% | **100%** | no loss |
+
+![Benchmark Chart](experiment_results/benchmark_chart.png)
 
 ---
 
@@ -90,7 +92,7 @@ Query Embeddings (batch)
 ### Installation
 
 ```bash
-git clone https://github.com/omaralazoni/fastrag-vector-search.git
+git clone https://github.com/OmarElazouni/fastrag-vector-search.git
 cd fastrag-vector-search
 pip install -r requirements.txt
 ```
@@ -101,19 +103,22 @@ pip install -r requirements.txt
 python fastrag_vector_search.py
 ```
 
-Expected output:
+Expected output (RTX 5070):
 ```
 Device  : CUDA
-GPU     : NVIDIA A100 80GB PCIe
-VRAM    : 80.0 GB
+GPU     : NVIDIA GeForce RTX 5070 Laptop GPU
+VRAM    : 8.5 GB
 
-[Baseline] Initialising index | device=cuda | docs=100,000 | dim=1536
-...
-======================================================================
-  Mean latency   :   85.23 ms  (vs  213.41 ms baseline)
-  Throughput     :  375.4 QPS  (vs  150.2 QPS baseline)
-  Memory savings :  50.0%
-======================================================================
+[WITHOUT optimisation] Warming up ...
+[WITH optimisation] Warming up ...
+=================================================================
+  Mean latency (ms)        WITHOUT         WITH
+  -------------------------------------------------
+                            22.44          0.59
+  Throughput (QPS)        1,425.9      54,647.1
+  Memory savings : 50.0%
+  Speedup        : 38.03x
+=================================================================
 ```
 
 ---
@@ -156,27 +161,33 @@ pytest tests/test_vector_retrieval.py::TestOptimizedVectorRetrieval -v
 
 ```
 fastrag-vector-search/
-├── fastrag_vector_search.py     ← Main implementation
+├── fastrag_vector_search.py          ← Main engine (Baseline + Optimised + Benchmark)
+├── experiment_results.py             ← Standalone WITHOUT vs WITH experiment
 ├── requirements.txt
 ├── LICENSE
 ├── .gitignore
 │
+├── experiment_results/
+│   ├── benchmark_chart.png           ← RTX 5070 results chart
+│   ├── results.json                  ← Raw benchmark numbers
+│   └── EXPERIMENT_REPORT.md          ← Full experiment report
+│
 ├── src/
-│   └── __init__.py              ← Package exports
+│   └── __init__.py                   ← Package exports
 │
 ├── tests/
-│   └── test_vector_retrieval.py ← Pytest unit tests
+│   └── test_vector_retrieval.py      ← 20+ pytest unit tests
 │
 ├── benchmarks/
-│   ├── run_benchmarks.sh        ← Full benchmark runner
-│   └── results/                 ← Generated plots (gitignored)
+│   ├── run_benchmarks.sh             ← Full benchmark runner
+│   └── results/                      ← Generated plots (gitignored)
 │
 ├── docs/
 │   └── CUDA_OPTIMIZATION_GUIDE.md
 │
 └── .github/
     └── workflows/
-        └── tests.yml            ← CI: run tests on every push
+        └── tests.yml                 ← CI: run tests on every push
 ```
 
 ---
@@ -266,7 +277,7 @@ MIT License — see [LICENSE](LICENSE) for details.
 **Omar Yasser Mohamed Elazouni**  
 📧 omaralazoni2015@gmail.com  
 🔗 [linkedin.com/in/omar-yasser-elazouni](https://linkedin.com/in/omar-yasser-elazouni)  
-🐙 [github.com/omaralazoni](https://github.com/omaralazoni)
+🐙 [github.com/OmarElazouni](https://github.com/OmarElazouni)
 
 ---
 
